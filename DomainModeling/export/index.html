@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>title</title>
+  <title>SAFE Stack</title>
 
   <meta name="description" content="">
   <meta name="author" content="">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="libs/reveal.js/font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/reveal.css">
   
-  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/theme/black.css" id="theme">
+  <link rel="stylesheet" href="libs/reveal.js/3.8.0/css/theme/night.css" id="theme">
   
   
   <link rel="stylesheet" href="libs/reveal.js/3.8.0/plugin/title-footer/title-footer-mod.css" />
@@ -96,7 +96,7 @@
 
   <!-- Theme used for syntax highlighting of code -->
   
-  <link rel="stylesheet" href="libs/highlight.js/9.12.0/Zenburn.css">
+  <link rel="stylesheet" href="libs/highlight.js/9.12.0/monokai.css">
   
 
   
@@ -275,7 +275,321 @@
     
         <section >
             
+            <h3><a id="user-content-ch-2" class="anchor" href="#ch-2" aria-hidden="true"></a>ch 2</h3>
+<h3><a id="user-content-domain-modeling-made-functional" class="anchor" href="#domain-modeling-made-functional" aria-hidden="true"></a>Domain Modeling Made Functional</h3>
+<h4><a id="user-content-f" class="anchor" href="#f" aria-hidden="true"></a>F#</h4>
+<style>
+pre {
+  background: #303030;
+  padding: 10px 16px;
+  border-radius: 0.3em;
+  counter-reset: line;
+}
+pre code[class*="="] .line {
+  display: block;
+  line-height: 1.8rem;
+  font-size: 1em;
+}
+pre code[class*="="] .line:before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  border-right: 3px solid #6ce26c !important;
+  padding: 0 .5em;
+  margin-right: .5em;
+  color: #afafaf !important;
+  width: 24px;
+  text-align: right;
+}
+
+.reveal .slides > section > section {
+  text-align: center;
+}
+
+h1,h2,h3,h4 {
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+</style>
+
+            </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-what-is-domain-model--" class="anchor" href="#what-is-domain-model--" aria-hidden="true"></a>What is Domain model ? 🤔</h3>
+
+            </section>
+        
+            <section >
+                <p>In <strong>software engineering</strong>, a domain model is a <strong>conceptual</strong> model of the domain</p>
+
+            </section>
+        
+            <section >
+                <h4><a id="user-content-how-can-we-get-domain-model" class="anchor" href="#how-can-we-get-domain-model" aria-hidden="true"></a>How can we get domain model?</h4>
+<aside class="notes">我們要怎麼取得domain model呢?既然domain model為某個domain的概念模型，首先我們就要取得domain的知識。</aside>
+
+            </section>
+        
+            <section >
+                <p><img src="./img/share_mental_model.jpg" alt="" width="700" height="500"></p>
+<aside class="notes">我們可以透過shared mental model來取得Domain knowledge，當users、Domain experts、developer都參與討論，討論出屬於這個團隊共同的語言，就不會出現爭議，就好像我們在麥噹噹點了一號餐，每個員工都知道1號餐是什麼配置，那它們有shared mental model，對它們而言1號餐就代表著某種餐點，不會出現第二種餐點。
+那為什麼code會在裡面呢?code在這邊是我們大家的共通語言，大家都使用code來溝通，這樣code自然而然就會變成domain model、文件</aside>
+
+            </section>
+        
+            <section >
+                <h4><a id="user-content-domain-model" class="anchor" href="#domain-model" aria-hidden="true"></a>domain model</h4>
+<ul>
+<li>User Story</li>
+<li>Event Storming</li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-type-system" class="anchor" href="#type-system" aria-hidden="true"></a>Type System</h3>
+<aside class="notes">用於定義如何將程式語言中的數值和運算式歸類為許多不同的型別，如何操作這些型別，這些型別如何互相作用。</aside>
+
+            </section>
+        
+            <section >
+                <h4><a id="user-content-why-type-system" class="anchor" href="#why-type-system" aria-hidden="true"></a>Why Type System?</h4>
+<blockquote>
+<p>A well designed functional program, on the other hand, will have a strong focus on <em>data types</em> rather than behavior.--  Scott Wlaschin</p>
+</blockquote>
+
+            </section>
+        
+            <section >
+                <ul>
+<li>Code Readability</li>
+<li>Prevent errors</li>
+<li>Pattern Matching</li>
+<li>Domain Modeling</li>
+</ul>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-type-abbreviationsalias" class="anchor" href="#type-abbreviationsalias" aria-hidden="true"></a>Type abbreviations(alias)</h3>
+<ul>
+<li>Code Readability</li>
+</ul>
+<pre><code class="language-Fsharp=">type [typename] = [existingType]
+type Name = String
+type Fruit = Apple
+</code></pre>
+
+            </section>
+        
+            <section >
+                <h4><a id="user-content-have-a-question" class="anchor" href="#have-a-question" aria-hidden="true"></a>Have a Question!</h4>
+<pre><code class="language-Fsharp=">type FirstName = string
+type LastName = string
+
+let name firstName lastName = firstName + &quot; &quot; + lastName
+let firstName: FirstName = &quot;Jia-Wei&quot;
+let lastName: LastName = &quot;Lin&quot;
+name firstName lastName //ok
+name lastName firstName //ok
+</code></pre>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+        <section >
             
+            <h3><a id="user-content-prevent-errors" class="anchor" href="#prevent-errors" aria-hidden="true"></a>Prevent errors</h3>
+<pre><code class="language-Fsharp=">type FirstName = FirstName of string
+type LastName = LastName of string
+
+let firstName = FirstName &quot;Jia-Wei&quot;
+let lastName = LastName &quot;Lin&quot;
+let name (FirstName firstName) (LastName lastName) = firstName + &quot; &quot; + lastName
+
+name firstName lastName // ok
+name lastName firstName // error
+</code></pre>
+
+            </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-pattern-matching" class="anchor" href="#pattern-matching" aria-hidden="true"></a>Pattern Matching</h3>
+<pre><code class="language-Fsharp">type Fruit =
+    | Apple
+    | Banana
+    | Papaya
+
+let fruitList = [ Apple; Banana; Papaya ]
+
+for fruit in fruitList do
+    match fruit with
+    | Apple -&gt; printfn &quot;Yes! I love apple.&quot;
+    | Banana -&gt; printfn &quot;Yes! I love banana.&quot;
+    | Papaya -&gt; printfn &quot;Yes! I love papaya.&quot;
+
+</code></pre>
+
+            </section>
+        
+            <section >
+                <pre><code class="language-Fsharp=">type Fruit =
+    | Apple of string
+    | Banana of string
+    | Papaya of string
+
+let fruitList =
+    [ Apple &quot;red apple&quot;
+      Banana &quot;yellow banana&quot;
+      Papaya &quot;Papaya!&quot; ]
+
+for fruit in fruitList do
+    match fruit with
+    | Apple value -&gt; printfn &quot;Yes! I love %A.&quot; value
+    | Banana value -&gt; printfn &quot;Yes! I love %A.&quot; value
+    | Papaya value -&gt; printfn &quot;Yes! I love %A.&quot; value
+</code></pre>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-algebraic-data-type-adt" class="anchor" href="#algebraic-data-type-adt" aria-hidden="true"></a>Algebraic Data Type (ADT)</h3>
+<ul>
+<li>Product Type ➡️ AND</li>
+<li>Sum Type ➡️ OR</li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-product-type" class="anchor" href="#product-type" aria-hidden="true"></a>Product Type</h3>
+<p>A &amp; B &amp; C</p>
+<h4><a id="user-content-record" class="anchor" href="#record" aria-hidden="true"></a>Record</h4>
+<pre><code class="language-Fsharp=">type Person1 = {Frst:string; Last:string}
+</code></pre>
+<h4><a id="user-content-tuple" class="anchor" href="#tuple" aria-hidden="true"></a>Tuple</h4>
+<pre><code class="language-Fsharp=">type Card = Suit * Rank
+</code></pre>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-sum-type" class="anchor" href="#sum-type" aria-hidden="true"></a>Sum Type</h3>
+<p>A + B + C</p>
+<h4><a id="user-content-union" class="anchor" href="#union" aria-hidden="true"></a>Union</h4>
+<pre><code class="language-Fsharp=">type Fruit = Apple | Banana | Papaya
+</code></pre>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-we-can-build-up-every-thing-with-adt" class="anchor" href="#we-can-build-up-every-thing-with-adt" aria-hidden="true"></a>We can build up every thing with <code>ADT</code></h3>
+
+            </section>
+        
+            <section >
+                <pre><code class="language-Fsharp">type UserContact ={
+  FirstName: String50
+  MiddleInitial: String1 option
+  LastName: String50
+  contactMethod: EmailAddress | PhoneNumber
+}
+</code></pre>
+<aside class="notes">這邊可以看到有一個User的連絡資訊，…
+強調做好type後，我們其實不用寫test也可以確保我們的quality。</aside>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3><a id="user-content-recap" class="anchor" href="#recap" aria-hidden="true"></a>Recap</h3>
+<ul>
+<li>Domain model
+<ul>
+<li>shared mental model</li>
+</ul>
+</li>
+<li>F# Type System</li>
+<li>ADT
+<ul>
+<li>Product type ➡️ And</li>
+<li>Sum type ➡️ Or</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3><a id="user-content-references" class="anchor" href="#references" aria-hidden="true"></a>References</h3>
+<p><a href="https://www.youtube.com/watch?v=2JB1_e5wZmU">https://www.youtube.com/watch?v=2JB1_e5wZmU</a>
+<a href="https://fsharpforfunandprofit.com/posts/overview-of-types-in-fsharp/">https://fsharpforfunandprofit.com/posts/overview-of-types-in-fsharp/</a></p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2><a id="user-content-return-to-outline" class="anchor" href="#return-to-outline" aria-hidden="true"></a><a href="../../export/#/2">return to Outline</a></h2>
+
             </section>
     
 
@@ -298,7 +612,7 @@
         controlsLayout: 'bottom-right',
         controlsBackArrows: 'faded',
         progress: true,
-        slideNumber: false,
+        slideNumber: true,
         history: true,
         keyboard: true,
         overview: true,
@@ -320,7 +634,7 @@
         mouseWheel: false,
         hideAddressBar: true,
         previewLinks: false,
-        transition: 'default',
+        transition: 'slide',
         transitionSpeed: 'default',
         backgroundTransition: 'default',
         viewDistance: 3,

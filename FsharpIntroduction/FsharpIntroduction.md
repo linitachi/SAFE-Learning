@@ -8,7 +8,7 @@ title: "SAFE Stack"
 
 ---
 
-#### ch 1
+### ch 1
 
 ### F# Introduction
 

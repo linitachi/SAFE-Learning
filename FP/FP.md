@@ -5,11 +5,12 @@ transition: "slide"
 highlightTheme: "monokai"
 slideNumber: true
 title: "SAFE Stack"
+
 ---
 
-## SAFE Stack
+### ch x
 
-### with F #
+### Functional Programing with F#
 
 <style>
 pre {
@@ -50,29 +51,23 @@ p {
 
 ---
 
-## Lin Jia Wei
+### What is Functional programming ? 🤔
 
-![](./img/photo.jpg =400x400)
+--
 
----
+A programming paradigm where programs are constructed by applying and composing functions. It is a declarative programming paradigm in which function definitions are trees of expressions that each return a value, rather than a sequence of imperative statements which change the state of the program. - wiki
 
-### Outline
+--
 
-1. [F# Introduction](../FsharpIntroduction/export/)
-1. [Functional Programming With F#](../fp/export/)
-1. [Domain Modeling Made Functional](../DomainModeling/export/)
-1. [SAFE Introduction](../ch3/export/)
-1. [Saturn](../ch4/export/)
-1. [Fable+Elmish](../ch5/export/)
-1.
-
-note:
-F# Introduction:let everyone know what is F# and introcution of syntax
-Domain modeling made functional:Introduction power of F# type system
-SAFE Introduction
+![](./img/1.JPG =800x600)
+https://ithelp.ithome.com.tw/articles/10233761
 
 ---
 
 ### References
 
-- <https://github.com/swlaschin/dotnetconf2021>
+
+
+---
+
+## [return to Outline](../../export/#/2)
