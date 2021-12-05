@@ -61,10 +61,9 @@ p {
 1. [F# Introduction](../FsharpIntroduction/export/)
 1. [Functional Programming With F#](../fp/export/)
 1. [Domain Modeling Made Functional](../DomainModeling/export/)
-1. [SAFE Introduction](../ch3/export/)
-1. [Saturn](../ch4/export/)
-1. [Fable+Elmish](../ch5/export/)
-1.
+2. [SAFE Introduction](../SAFE-intro/export/)
+3. [Saturn](../ch4/export/)
+4. [Fable+Elmish](../ch5/export/)
 
 note:
 F# Introduction:let everyone know what is F# and introcution of syntax
