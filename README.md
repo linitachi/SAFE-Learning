@@ -3,6 +3,9 @@ this is SAFE stack learning material
 
 ## outline
 
+## Slides
+
+<https://linitachi.github.io/SAFE-Learning/export/>
 
 ## Reference
 

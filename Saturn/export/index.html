@@ -275,8 +275,8 @@
     
         <section >
             
-            <h3><a id="user-content-ch-1" class="anchor" href="#ch-1" aria-hidden="true"></a>ch 1</h3>
-<h3><a id="user-content-f-introduction" class="anchor" href="#f-introduction" aria-hidden="true"></a>F# Introduction</h3>
+            <h3><a id="user-content-ch-4" class="anchor" href="#ch-4" aria-hidden="true"></a>ch 4</h3>
+<h3><a id="user-content-saturn" class="anchor" href="#saturn" aria-hidden="true"></a>Saturn</h3>
 <style>
 pre {
   background: #303030;
@@ -322,396 +322,101 @@ p {
     
     <section>
         <section >
-            <h2><a id="user-content-f-syntax" class="anchor" href="#f-syntax" aria-hidden="true"></a><a href="https://github.com/swlaschin/dotnetconf2021/blob/main/syntax.fsx">F# syntax</a></h2>
-<aside class="notes"> 接下來為大家介紹F#的語法</aside>
+            <h3><a id="user-content-what-is-saturn-" class="anchor" href="#what-is-saturn-" aria-hidden="true"></a>What is Saturn ?</h3>
+<p>Saturn is a web development framework written in F# which implements the server-side MVC pattern.</p>
+<p><a href="https://saturnframework.org/explanations/overview.html">https://saturnframework.org/explanations/overview.html</a>
+<a href="https://saturnframework.org/">https://saturnframework.org/</a></p>
 
             </section>
         
             <section >
-                <pre><code class="language-fsharp=">
-// ===================================
-// Introducing &quot;let something = something else&quot;
-// ===================================
+                <h3><a id="user-content-why-saturn-🧐" class="anchor" href="#why-saturn-🧐" aria-hidden="true"></a>Why Saturn? 🧐</h3>
+<ul>
+<li>SAFE official recommend 👍</li>
+<li>Modern programming model 👍</li>
+<li>High performance 👍</li>
+<li>Developer experience 👍</li>
+<li>Created by Community 👍</li>
+</ul>
+<aside class="notes">
+SAFE官方推薦
+Saturn 將眾所周知的 MVC 模式與 FP 和 F# 的強大功能相結合，使 Web programing變得有趣而簡單</aside>
 
-let x = 42
-// x is an immutable *value*
-// everywhere you see &quot;x&quot; you can replace it with 42
+            </section>
+        
 
-// val x : int = 42
-//       ^colon is for type annotations
-
-
-
-
-
-
-
-
-
-// let is used to define functions as well
-
-// a 2-parameter function
-let add x y = x + y
-//      ^ spaces between params
-//            ^ no return keyword
-
-
-// test it
-add 2 3
-// ^ ^ spaces between params
-//     (except when calling OO code like .NET library)
+    </section>
+    
 
 
 
+    
+        <section >
+            
+            <h3><a id="user-content-saturn-architecture" class="anchor" href="#saturn-architecture" aria-hidden="true"></a>Saturn Architecture</h3>
+<p><img src="./img/saturn-architecture.png" alt=""></p>
+<aside class="notes">saturn建立於Asp.net之上，他提供了builder來簡化配置Web app的過程。而Saturn也提供了許多與Giraffe一起使用的功能，Giraffe的作用是什麼呢? 他的主要目的就是在asp.net上使用functional programing的方式建立web app. 而Kestrel則是適用于 <a href="http://ASP.NET">ASP.NET</a> Core的跨平臺 web 伺服器，目的是用來創立高性能的Web伺服器，而Saturn也可以在上面運行。</aside>
+
+            </section>
+    
 
 
 
+    
+    <section>
+        <section >
+            <h3><a id="user-content-saturn-introduction" class="anchor" href="#saturn-introduction" aria-hidden="true"></a>Saturn Introduction</h3>
 
+            </section>
+        
+            <section >
+                <h3><a id="user-content-hello-world-saturn" class="anchor" href="#hello-world-saturn" aria-hidden="true"></a>Hello world Saturn</h3>
+<pre><code class="language-Fsharp=">open Saturn
+open Giraffe
 
+let endpoints =
+    router { get &quot;/&quot; (text &quot;Hello World from Saturn&quot;) }
 
-
-
-
-
-// ===================================
-// code blocks are represented by indentation
-// ===================================
-
-let square x =
-    x * 2
-
-let double x =
-    let two = 2
-    x * two
-
-let squareAndDouble x =
-    let y = square x
-    double y  // no return keyword
-
-
-
-
-
-
-(*
-How to convert from a C-style language to F#
-    * change to &quot;let ... =&quot; for definitions
-    * indent how you normally would
-    * delete the { }
-    * delete &quot;return&quot;
-    * delete semicolons
-    * you often can delete type annotations as well!
-*)
-
-(*
-// C-style language
-int squareAndDouble(int x)
-{
-    var y = square(x);
-    return double(y);
-}
-// python
-def squareAndDouble(x):
-    y = square(x)
-    return double(y)
-*)
-
-
-
-
-
-
-
-
-// ===================================
-// Computation expressions: Special code blocks
-// with customizable behavior
-// ===================================
-
-let downloadFile filename : Async&lt;string&gt; = failwith &quot;not implemented&quot;
-let uploadFile filename url : Async&lt;unit&gt; = failwith &quot;not implemented&quot;
-
-
-let downloadManyFiles() =
-    async {
-       let! contentsA = downloadFile &quot;source/a.txt&quot;
-       do! uploadFile contentsA &quot;target/a.txt&quot;
-       return &quot;OK&quot;
+let app =
+    application {
+        url (&quot;https://localhost:5000&quot;)
+        use_router endpoints
     }
-    // in an &quot;async&quot; computation expression:
-    //  ^let! is like &quot;await&quot;
-    //  ^do! is like &quot;await void&quot;
 
-(*
-computation expressions are used for:
-* async/task
-* queries (like query expression in C#)
-* generating collections/enumerables
-* validation
-* error handing
-* testing
-* code generation
-* etc etc
-*)
-
-
-
-
-
-
-
-
-// generate an sequence/enumerable
-seq {
-    yield! [1..11]
-    if System.DateTime.Now.Hour &gt; 12 then
-        yield! [12..24]
-    for i in [1..5] do
-        yield square i
-}
-
-
-
-
-
-
-
-
-
-
-// dummy database
-let db =
-    {| Student = [
-        {| StudentId=1; Name=&quot;Alice&quot; |}
-        {| StudentId=42; Name=&quot;Bob&quot; |}
-    ] |}
-
-// query a database
-query {
-    for student in db.Student do
-    where (student.StudentId &gt; 4)
-    sortBy student.Name
-    select student
-}
-
-
-
-
-
-
-
-
-
-
-// ===================================
-// Introducing the pipeline operator
-// ===================================
-
-let add42 x = x + 42
-
-let squareDoubleAdd42 x =
-    add42(double(square(x)))
-
-
-
-
-
-
-
-
-
-
-
-let squareDoubleAdd42 x =
-    x |&gt; square |&gt; double |&gt; add42
-
-
-
-
-
-
-
-
-
-
-
-
-// ===================================
-// Pipelines are a bit like LINQ
-// ===================================
-
-open System // same as &quot;using&quot;
-open System.Linq
-
-[1..10]
-  .Select(fun x -&gt; x * 2)   // lambda syntax in F#
-  .Where(fun x -&gt; x &lt;= 6)
-  .Select(fun x -&gt; $&quot;x={x}&quot;)
-  .ToArray()
-
-[1..10]
-|&gt; List.map (fun x -&gt; x * 2)  // 2 4 6...20
-|&gt; List.filter (fun x -&gt; x &lt;= 6)  //2 4 6
-|&gt; List.map (sprintf &quot;x=%i&quot;) // 2 * 4 * 6 = 48
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// pipelines are more flexible because
-// you don't need extension methods
-
-let product aList =
-    List.fold (*) 1 aList
-
-let logToConsole input =
-    printfn &quot;input=%i&quot; input
-    input
-
-[1..10]
-|&gt; List.map (fun x -&gt; x * 2) //2 4 6...20
-|&gt; List.filter (fun x -&gt; x &lt;= 6) //2 4 6
-|&gt; product // 2 * 4 * 6 = 48
-|&gt; logToConsole
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(* ======================================
-SOLID works well with functional programming
-Open-closed principle:
-You can add new code, but don't change existing code
-Pipeline-oriented programming is a good technique for this!
-====================================== *)
-
-// some dummy functions
-let log label input =  failwith &quot;not implemented&quot;
-let checkAuthorization query =  failwith &quot;not implemented&quot;
-let loadFromDb (query:string) :string =  failwith &quot;not implemented&quot;
-let saveToDb input :unit =  failwith &quot;not implemented&quot;
-
-open System.Text.Json  // same as &quot;using&quot; or &quot;import&quot;
-
-let myImportantWorkflow query =
-    // Onion architecture: I/O at edges
-    query
-    |&gt; loadFromDb
-    |&gt; JsonSerializer.Deserialize
-
-    // pure domain logic
-    |&gt; List.map (fun x -&gt; x * 2)
-    |&gt; List.filter (fun x -&gt; x &lt;= 6)
-
-    // I/O
-    |&gt; JsonSerializer.Serialize
-    |&gt; saveToDb
-
-
-
-
-
-
-
-
-
-// ===================================
-// How type inference works
-// ===================================
-
-// with type annotations
-let add2 (x:int) :int = x + 2
-//         ^ type annotation (type comes AFTER parameter name)
-//               ^ type annotation
-
-// without type annotations
-let add3 x = x + 3
-
-
-
-
-
-
-
-
-
-let doSomething f x =
-   let y = f (x + 1)
-   &quot;hello&quot; + y
-
-
-
-
-
-
-
-
-
-
-
-// use it
-let intToStr i = sprintf &quot;%i&quot; i
-doSomething intToStr 42
-
-
-
-
-
-
-
-
-
-
-
-
-
-(*
-Benefits of type inference
-* less typing
-* less noise, more logic
-// C# code
-public IEnumerable&lt;IGrouping&lt;TKey, TSource&gt;&gt; GroupBy&lt;TSource, TKey&gt;(
-    IEnumerable&lt;TSource&gt; source,
-    Func&lt;TSource, TKey&gt; keySelector
-    )
-{
-   ...
-}
-// F# code
-let GroupBy source keySelector =
-   ...
-*)
-
-// here's proof!
-let groupBy source keySelector =
-   List.groupBy keySelector source
+run app
+</code></pre>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-practice" class="anchor" href="#practice" aria-hidden="true"></a>Practice</h3>
+<ol>
+<li>Create F# console project
+<ul>
+<li><code>dotnet new console -lang &quot;F#&quot;</code></li>
+</ul>
+</li>
+<li>Add the Saturn NuGet Package
+<ul>
+<li><code>dotnet add package Saturn</code></li>
+</ul>
+</li>
+<li>Copy and paste</li>
+<li></li>
+</ol>
+<pre><code class="language-Fsharp=">open Saturn
+open Giraffe
+
+let endpoints =
+    router { get &quot;/&quot; (text &quot;Hello World from Saturn&quot;) }
+
+let app =
+    application {
+        url (&quot;https://localhost:5000&quot;)
+        use_router endpoints
+    }
+
+run app
 </code></pre>
 
             </section>
@@ -725,10 +430,61 @@ let groupBy source keySelector =
     
         <section >
             
+            <h3><a id="user-content-config-of-saturn" class="anchor" href="#config-of-saturn" aria-hidden="true"></a>Config of Saturn</h3>
+<pre><code class="language-FSharp=">let app =
+    application {
+        url (&quot;https://localhost:5000&quot;)
+        use_router endpoints
+        memory_cache
+        use_static &quot;public&quot;
+        use_gzip
+    }
+</code></pre>
+<p><a href="https://github.com/SaturnFramework/Saturn/blob/master/src/Saturn/Application.fs">https://github.com/SaturnFramework/Saturn/blob/master/src/Saturn/Application.fs</a>
+<a href="https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory?view=aspnetcore-6.0">https://docs.microsoft.com/en-us/aspnet/core/performance/caching/memory?view=aspnetcore-6.0</a></p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3><a id="user-content-saturn-router" class="anchor" href="#saturn-router" aria-hidden="true"></a>Saturn Router</h3>
+<pre><code class="language-FSharp=">let getProductById (productId: int64) =
+    let a = (sprintf &quot;Hello my id is %d&quot; productId)
+    text a
+
+let routes =
+    router {
+        get &quot;/&quot; (text &quot;Hello from Saturn!&quot;)
+        getf &quot;/%d&quot; getProductById
+    }
+</code></pre>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3><a id="user-content-saturn-controller" class="anchor" href="#saturn-controller" aria-hidden="true"></a>Saturn Controller</h3>
+<p><a href="https://medium.com/lambda-factory/magic-of-saturn-controllers-bafbc46d485f">https://medium.com/lambda-factory/magic-of-saturn-controllers-bafbc46d485f</a></p>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
             <h3><a id="user-content-references" class="anchor" href="#references" aria-hidden="true"></a>References</h3>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=kSfi6kcZrzM&amp;ab_channel=dotNET">https://www.youtube.com/watch?v=kSfi6kcZrzM&amp;ab_channel=dotNET</a></li>
-</ul>
+<p><a href="https://safe-stack.github.io/docs/component-saturn/">https://safe-stack.github.io/docs/component-saturn/</a>
+<a href="https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-6.0">https://docs.microsoft.com/zh-tw/aspnet/core/fundamentals/servers/kestrel?view=aspnetcore-6.0</a></p>
 
             </section>
     
