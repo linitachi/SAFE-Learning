@@ -401,15 +401,20 @@ run app
 <li><code>dotnet add package Saturn</code></li>
 </ul>
 </li>
+</ol>
+
+            </section>
+        
+            <section >
+                <ol start="3">
 <li>Copy and paste</li>
-<li></li>
 </ol>
 <pre><code class="language-Fsharp=">open Saturn
 open Giraffe
 
 let endpoints =
     router { get &quot;/&quot; (text &quot;Hello World from Saturn&quot;) }
-
+  //Change the text function in endpoints to either xml or json.
 let app =
     application {
         url (&quot;https://localhost:5000&quot;)
@@ -431,7 +436,7 @@ run app
         <section >
             
             <h3><a id="user-content-config-of-saturn" class="anchor" href="#config-of-saturn" aria-hidden="true"></a>Config of Saturn</h3>
-<pre><code class="language-FSharp=">let app =
+<pre><code class="language-Fsharp=">let app =
     application {
         url (&quot;https://localhost:5000&quot;)
         use_router endpoints
@@ -449,8 +454,8 @@ run app
 
 
     
+    <section>
         <section >
-            
             <h3><a id="user-content-saturn-router" class="anchor" href="#saturn-router" aria-hidden="true"></a>Saturn Router</h3>
 <pre><code class="language-FSharp=">let getProductById (productId: int64) =
     let a = (sprintf &quot;Hello my id is %d&quot; productId)
@@ -460,21 +465,199 @@ let routes =
     router {
         get &quot;/&quot; (text &quot;Hello from Saturn!&quot;)
         getf &quot;/%d&quot; getProductById
+        //post、delete、put、postf...
     }
+</code></pre>
+<aside class="notes">這邊提供許多路由的方式。</aside>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-forward" class="anchor" href="#forward" aria-hidden="true"></a>forward</h3>
+<pre><code class="language-FSharp=">let publicApi =
+    router { get &quot;/&quot; (text &quot;This is publicApi&quot;) }
+
+let routes = router { forward &quot;/public&quot; publicApi }
+</code></pre>
+<aside class="notes">會在下一個function前面加上你想加的前綴url</aside>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-saturn-controller" class="anchor" href="#saturn-controller" aria-hidden="true"></a>Saturn Controller</h3>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-resource" class="anchor" href="#resource" aria-hidden="true"></a>Resource</h3>
+<ul>
+<li>Path to a function
+<ul>
+<li>Use router <code>{ }</code></li>
+<li>Links a function to an endpoint</li>
+</ul>
+</li>
+<li>Path to an object
+<ul>
+<li>Use controller <code>{ }</code></li>
+<li>Provides a set of ready-made endpoints for CRUD behaviour over an object.</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-controller" class="anchor" href="#controller" aria-hidden="true"></a>controller</h3>
+<pre><code class="language-Fsharp">let resource = controller {
+    index indexAction
+    show showAction
+    add addAction
+    edit editAction
+    create createAction
+    update updateAction
+    patch patchAction
+    delete deleteAction
+    deleteAll deleteAllAction
+}
 </code></pre>
 
             </section>
-    
+        
+            <section >
+                <ul>
+<li><code>index</code> — mapped into <code>GET</code> request at <code>/</code> endpoint. Usually used to render a view displaying list of items, or return whole list of items.</li>
+<li><code>show</code> — mapped into <code>GET</code> request at <code>/:id</code> endpoint. Usually used to render a view displaying details of particular item, or return single item with given id.</li>
+<li><code>create</code> — mapped into <code>POST</code> request at <code>/</code> endpoint. Used to create and save new item.</li>
+</ul>
 
-
-
-    
-        <section >
-            
-            <h3><a id="user-content-saturn-controller" class="anchor" href="#saturn-controller" aria-hidden="true"></a>Saturn Controller</h3>
+            </section>
+        
+            <section >
+                <ul>
+<li><code>update</code> — mapped into <code>POST</code> and <code>PUT</code> requests at <code>/:id</code> endpoint. Used to update existing item. Usually replaces original item (keeping id), and requires are fields to be filled in the incoming item.</li>
+<li><code>delete</code> — mapped into <code>DELETE</code> request at <code>/:id</code> endpoint. Used to delete or deactivate existing item.</li>
+<li><code>deleteAll</code> — mapped into <code>DELETE</code> request at <code>/</code> endpoint. Used to delete or deactivate all items.</li>
+</ul>
 <p><a href="https://medium.com/lambda-factory/magic-of-saturn-controllers-bafbc46d485f">https://medium.com/lambda-factory/magic-of-saturn-controllers-bafbc46d485f</a></p>
 
             </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-saturn-fundamentals" class="anchor" href="#saturn-fundamentals" aria-hidden="true"></a>Saturn Fundamentals</h3>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-http-context-ctx" class="anchor" href="#http-context-ctx" aria-hidden="true"></a>HTTP Context (ctx)</h3>
+<ul>
+<li>Contains all details on the request / response
+<ul>
+<li>URL</li>
+<li>Query String</li>
+<li>Headers</li>
+<li>Body</li>
+</ul>
+</li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-http-endpoints-as-functions" class="anchor" href="#http-endpoints-as-functions" aria-hidden="true"></a>HTTP Endpoints as Functions</h3>
+<ul>
+<li>Http Request ⏩ Http Response</li>
+<li>HttpContext ⏩ HttpContext</li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-http-handler" class="anchor" href="#http-handler" aria-hidden="true"></a>HTTP Handler</h3>
+<h4><a id="user-content-for-example-text" class="anchor" href="#for-example-text" aria-hidden="true"></a>For example: text</h4>
+<ul>
+<li>Sets the Content Type to text/plain</li>
+<li>Sets the Response Body to the text you provide it</li>
+<li>Sets the Response Code to 202</li>
+</ul>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-http-handler-can-be-composed" class="anchor" href="#http-handler-can-be-composed" aria-hidden="true"></a>HTTP handler can be composed</h3>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-code-snipts" class="anchor" href="#code-snipts" aria-hidden="true"></a>Code snipts</h3>
+<pre><code class="language-Fsharp=">module Fuber.Routes
+
+open Giraffe
+open Saturn
+
+
+type Profile = { Username: string }
+
+let getProfile next ctx =
+    let profile = { Username = &quot;JW&quot; }
+
+    json profile next ctx
+// next ctx //return this , pipeline will return getProfile2 result
+
+// never run
+let getProfile2 next ctx =
+    let profile = { Username = &quot;QQ&quot; }
+
+    json profile next ctx
+
+let setMyHeader = setHttpHeader &quot;myCustomHeader&quot; &quot;abcd&quot;
+
+
+let headerPipe =
+    pipeline {
+        plug setMyHeader
+        plug getProfile
+        plug getProfile2 // never run because getProfile get something, if getProfile return None, pipeline will continue.
+    }
+
+let apiRouter = router { get &quot;/profile&quot; headerPipe }
+
+let router = router { forward &quot;/api&quot; apiRouter }
+
+
+let app =
+    application {
+        url &quot;http://0.0.0.0:8080/&quot;
+        use_router router
+        memory_cache
+        use_static &quot;content&quot;
+        use_gzip
+    }
+
+run app
+
+</code></pre>
+
+            </section>
+        
+
+    </section>
     
 
 
