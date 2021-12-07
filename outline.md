@@ -62,7 +62,7 @@ p {
 2. [Domain Modeling Made Functional](../DomainModeling/export/)
 3. [SAFE Introduction](../SAFE-intro/export/)
 4. [Saturn](../Saturn/export/)
-5. [Fable+Elmish](../ch5/export/)
+5. [Fable+Elmish](../Fable&Elmish/export/)
 6. [Functional Programming With F#](../fp/export/)
 
 note:

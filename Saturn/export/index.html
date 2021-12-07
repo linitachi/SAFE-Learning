@@ -551,6 +551,16 @@ let routes = router { forward &quot;/public&quot; publicApi }
 
             </section>
         
+            <section >
+                <h4><a id="user-content-example" class="anchor" href="#example" aria-hidden="true"></a>example</h4>
+<pre><code class="language-Fsharp=">let helloEndpoint = controller{
+    index (fun ctx -&gt; &quot;Hello&quot; |&gt; Controller.text ctx)
+    show (fun ctx id -&gt; (sprintf &quot;Show %i&quot; id)|&gt; Controller.text ctx)
+}
+</code></pre>
+
+            </section>
+        
 
     </section>
     
@@ -653,6 +663,101 @@ let app =
 run app
 
 </code></pre>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+    <section>
+        <section >
+            <h3><a id="user-content-lab" class="anchor" href="#lab" aria-hidden="true"></a>Lab</h3>
+<ol>
+<li>Create F# console project
+<ul>
+<li><code>dotnet new console -lang &quot;F#&quot;</code></li>
+</ul>
+</li>
+<li>Add the Saturn NuGet Package
+<ul>
+<li><code>dotnet add package Saturn</code></li>
+</ul>
+</li>
+</ol>
+
+            </section>
+        
+            <section >
+                <ol start="3">
+<li>Copy &amp; paste</li>
+</ol>
+<pre><code class="language-Fsharp">module Fuber.Routes
+
+open Giraffe
+open Saturn
+
+
+type Profile = { Username: string }
+
+let getProfile next ctx =
+    let profile = { Username = &quot;JW&quot; }
+
+    json profile next ctx
+// next ctx //return this , pipeline will return getProfile2 result
+
+// never run
+let getProfile2 next ctx =
+    let profile = { Username = &quot;QQ&quot; }
+
+    json profile next ctx
+
+let setMyHeader = setHttpHeader &quot;myCustomHeader&quot; &quot;abcd&quot;
+
+
+let headerPipe =
+    pipeline {
+        plug setMyHeader
+        plug getProfile
+        plug getProfile2 // never run because getProfile get something, if getProfile return None, pipeline will continue.
+    }
+
+let apiRouter = router { get &quot;/profile&quot; headerPipe }
+
+let router = router { forward &quot;/api&quot; apiRouter }
+
+
+let app =
+    application {
+        url &quot;http://0.0.0.0:8080/&quot;
+        use_router router
+        memory_cache
+        use_static &quot;content&quot;
+        use_gzip
+    }
+
+run app
+
+</code></pre>
+
+            </section>
+        
+            <section >
+                <ol start="4">
+<li>new a countController to router and prefix is <code>&quot;/v1&quot;</code></li>
+<li>new <code>index</code> and <code>show</code> functions in countController, and return <code>Hello</code> 、 <code>Hello id</code></li>
+</ol>
+
+            </section>
+        
+            <section >
+                <ul>
+<li>GET <a href="http://localhost:8080/v1/">http://localhost:8080/v1/</a> return Hello</li>
+<li>GET <a href="http://localhost:8080/v1/1">http://localhost:8080/v1/1</a> return Hello 1</li>
+</ul>
 
             </section>
         

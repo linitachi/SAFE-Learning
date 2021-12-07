@@ -230,6 +230,16 @@ let resource = controller {
 
 <https://medium.com/lambda-factory/magic-of-saturn-controllers-bafbc46d485f>
 
+--
+
+#### example
+```Fsharp=
+let helloEndpoint = controller{
+    index (fun ctx -> "Hello" |> Controller.text ctx)
+    show (fun ctx id -> (sprintf "Show %i" id)|> Controller.text ctx)
+}
+```
+
 ---
 
 ### Saturn Fundamentals
@@ -317,6 +327,79 @@ let app =
 run app
 
 ```
+
+---
+
+### Lab
+
+1. Create F# console project
+   - `dotnet new console -lang "F#"`
+2. Add the Saturn NuGet Package
+   - `dotnet add package Saturn`
+
+--
+
+3. Copy & paste
+
+```Fsharp
+module Fuber.Routes
+
+open Giraffe
+open Saturn
+
+
+type Profile = { Username: string }
+
+let getProfile next ctx =
+    let profile = { Username = "JW" }
+
+    json profile next ctx
+// next ctx //return this , pipeline will return getProfile2 result
+
+// never run
+let getProfile2 next ctx =
+    let profile = { Username = "QQ" }
+
+    json profile next ctx
+
+let setMyHeader = setHttpHeader "myCustomHeader" "abcd"
+
+
+let headerPipe =
+    pipeline {
+        plug setMyHeader
+        plug getProfile
+        plug getProfile2 // never run because getProfile get something, if getProfile return None, pipeline will continue.
+    }
+
+let apiRouter = router { get "/profile" headerPipe }
+
+let router = router { forward "/api" apiRouter }
+
+
+let app =
+    application {
+        url "http://0.0.0.0:8080/"
+        use_router router
+        memory_cache
+        use_static "content"
+        use_gzip
+    }
+
+run app
+
+```
+
+--
+
+4. new a countController to router and prefix is `"/v1"`
+5. new `index` and `show` functions in countController, and return `Hello` 、 `Hello id`
+ 
+
+--
+
+- GET http://localhost:8080/v1/ return Hello
+- GET http://localhost:8080/v1/1 return Hello 1
 
 ---
 
