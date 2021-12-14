@@ -78,7 +78,7 @@ p {
 
 --
 
-### [practice-ch5.fable](https://github.com/linitachi/SAFE-LearningCode/tree/master/ch5.fable)
+### [practice: fable](https://github.com/linitachi/SAFE-LearningCode/tree/master/ch5.fable)
 
 --
 
@@ -171,7 +171,118 @@ ReactDOM.render(Counter(), document.getElementById "root")
 
 ---
 
-### Lab: Wrapping a React component
+### [practice: Wrapping a React component](https://github.com/linitachi/SAFE-LearningCode/tree/master/ch5.reactWrapper)
+
+---
+
+### [Elmish](https://safe-stack.github.io/docs/component-elmish/)
+
+--
+
+#### Elmish is a library for building single page applications in F# applications, following the model-view-update(MVU) architecture made famous by Elm
+
+note:Elmish 是一個用於在 F# 應用程序中構建單頁應用程序的函式庫，遵循 Elm 著名的模型-視圖-更新架構。
+
+--
+
+### MVU architeture
+
+![](./img/elmish-architeture.JPG =800x600)
+
+--
+
+### [practice: Elmish - counter](https://github.com/linitachi/SAFE-LearningCode/tree/master/ch5.Elmish)
+
+- <https://thesharperdev.com/getting-started-with-elmish/>
+- <https://www.compositional-it.com/news-blog/ui-programming-with-elmish-in-f/>
+
+--
+
+### Elmish on SAFE Template
+
+```fsharp
+let update (msg: Msg) (model: Model) : Model * Cmd<Msg> =
+    match msg with
+    | GotTodos todos -> { model with Todos = todos }, Cmd.none
+    | SetInput value -> { model with Input = value }, Cmd.none
+    | AddTodo ->
+        let todo = Todo.create model.Input
+
+        let cmd =
+            Cmd.OfAsync.perform todosApi.addTodo todo AddedTodo
+
+        { model with Input = "" }, cmd
+    | AddedTodo todo ->
+        { model with
+              Todos = model.Todos @ [ todo ] },
+        Cmd.none
+```
+
+note:剛剛的練習是簡化版本的Elmish，SAFE Template中的是具有command的版本
+
+---
+
+### How to write View?
+
+1. Fable.React
+2. Feliz
+3. Feliz.Bulma
+
+--
+
+### Fable.React
+
+```fsharp
+  div []
+      [ button [ OnClick (fun _ -> dispatch Increment) ] [ str "+" ]
+        div [] [ str (string model) ]
+        button [ OnClick (fun _ -> dispatch Decrement) ] [ str "-" ] ]
+```
+
+<https://mangelmaxime.github.io/html-to-elmish/>
+
+--
+
+### Feliz
+
+```fsharp
+Html.div [
+    prop.className "columns"
+    prop.children [
+        Html.div [
+            prop.className "column is-2"
+            prop.children [
+                Html.button.a [
+                    prop.className "button"
+                    prop.text "Click me"
+                ]
+            ]
+        ]
+    ]
+]
+```
+
+--
+
+### Feliz.Bulma
+
+```fsharp
+open Feliz.Bulma
+
+Bulma.columns [
+    Bulma.column [
+        column.is2 // <-- note context helper here
+        prop.children [
+            Bulma.button.button "Click me"
+        ]
+    ]
+]
+```
+
+--
+
+### Difference
+[My journey with Feliz | A comparison between Fable.React and Feliz #155](https://github.com/Zaid-Ajaj/Feliz/issues/155#conclusion)
 
 ---
 
@@ -180,6 +291,8 @@ ReactDOM.render(Counter(), document.getElementById "root")
 <https://reactjs.org/>
 
 [F# wrappers for React components](<https://www.compositional-it.com/news-blog/f-wrappers-for-react-components/>)
+
+[Feliz.Bulma](https://dzoukr.github.io/Feliz.Bulma/#/)
 
 ---
 

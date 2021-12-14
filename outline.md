@@ -63,7 +63,8 @@ p {
 3. [SAFE Introduction](../SAFE-intro/export/)
 4. [Saturn](../Saturn/export/)
 5. [Fable+Elmish](../Fable&Elmish/export/)
-6. [Functional Programming With F#](../fp/export/)
+6. [SAFE Template Overview](../SAFETemplateOverview/export)
+7. [Functional Programming With F#](../fp/export/)
 
 note:
 F# Introduction:let everyone know what is F# and introcution of syntax
