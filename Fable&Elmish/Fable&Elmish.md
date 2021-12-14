@@ -140,7 +140,7 @@ A fresh retake of the base React DSL to build React applications, optimized for 
 
 Here is how it looks like:
 
-```Fsharp
+```Fsharp=
 module App
 
 open Feliz
@@ -200,7 +200,7 @@ note:Elmish 是一個用於在 F# 應用程序中構建單頁應用程序的函�
 
 ### Elmish on SAFE Template
 
-```fsharp
+```fsharp=
 let update (msg: Msg) (model: Model) : Model * Cmd<Msg> =
     match msg with
     | GotTodos todos -> { model with Todos = todos }, Cmd.none
@@ -232,7 +232,7 @@ note:剛剛的練習是簡化版本的Elmish，SAFE Template中的是具有comma
 
 ### Fable.React
 
-```fsharp
+```fsharp=
   div []
       [ button [ OnClick (fun _ -> dispatch Increment) ] [ str "+" ]
         div [] [ str (string model) ]
@@ -245,7 +245,7 @@ note:剛剛的練習是簡化版本的Elmish，SAFE Template中的是具有comma
 
 ### Feliz
 
-```fsharp
+```fsharp=
 Html.div [
     prop.className "columns"
     prop.children [
@@ -266,7 +266,7 @@ Html.div [
 
 ### Feliz.Bulma
 
-```fsharp
+```fsharp=
 open Feliz.Bulma
 
 Bulma.columns [
@@ -282,6 +282,7 @@ Bulma.columns [
 --
 
 ### Difference
+
 [My journey with Feliz | A comparison between Fable.React and Feliz #155](https://github.com/Zaid-Ajaj/Feliz/issues/155#conclusion)
 
 ---

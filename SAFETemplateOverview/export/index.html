@@ -275,8 +275,8 @@
     
         <section >
             
-            <h3><a id="user-content-ch-5" class="anchor" href="#ch-5" aria-hidden="true"></a>ch 5</h3>
-<h3><a id="user-content-fable--elmish" class="anchor" href="#fable--elmish" aria-hidden="true"></a>Fable &amp; Elmish</h3>
+            <h3><a id="user-content-ch-6" class="anchor" href="#ch-6" aria-hidden="true"></a>ch 6</h3>
+<h3><a id="user-content-safe-template-overview" class="anchor" href="#safe-template-overview" aria-hidden="true"></a>SAFE Template Overview</h3>
 <style>
 pre {
   background: #303030;
@@ -320,286 +320,27 @@ p {
 
 
     
-    <section>
-        <section >
-            <h3><a id="user-content-what-is-fable-" class="anchor" href="#what-is-fable-" aria-hidden="true"></a>What is Fable ?</h3>
-<ul>
-<li>Fable is an F#-to-JavaScript (JS) compiler.</li>
-<li>Fable brings all the power of F# to the JS ecosystem.</li>
-<li>Use JS libraries from F# (and vice versa) as well as make use of standard JS tools.</li>
-</ul>
-<p><a href="https://safe-stack.github.io/docs/component-fable/">https://safe-stack.github.io/docs/component-fable/</a></p>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-benefis-of-fable" class="anchor" href="#benefis-of-fable" aria-hidden="true"></a>Benefis of Fable</h3>
-<ul>
-<li>Static type</li>
-<li>All of F#'s features</li>
-<li>Runs on JavaScript</li>
-<li>Great interoperability with JavaScript libraries</li>
-</ul>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-how-to-use-fable" class="anchor" href="#how-to-use-fable" aria-hidden="true"></a>How to use Fable?</h3>
-<h4><a id="user-content-use-npm-package" class="anchor" href="#use-npm-package" aria-hidden="true"></a>Use npm package</h4>
-<p><a href="https://fable.io/docs/2-steps/your-first-fable-project.html">https://fable.io/docs/2-steps/your-first-fable-project.html</a></p>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-practice-fable" class="anchor" href="#practice-fable" aria-hidden="true"></a><a href="https://github.com/linitachi/SAFE-LearningCode/tree/master/ch5.fable">practice: fable</a></h3>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-not-enough" class="anchor" href="#not-enough" aria-hidden="true"></a>Not enough</h3>
-<p><a href="https://fable.io/docs/communicate/js-from-fable.html">https://fable.io/docs/communicate/js-from-fable.html</a></p>
-
-            </section>
-        
-
-    </section>
-    
-
-
-
-    
-    <section>
-        <section >
-            <h3><a id="user-content-react" class="anchor" href="#react" aria-hidden="true"></a>React</h3>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-what-is-react" class="anchor" href="#what-is-react" aria-hidden="true"></a>what is React?</h3>
-<p>React is a free and open-source front-end JavaScript library for building user interfaces based on UI components. <code>by wiki</code></p>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-features" class="anchor" href="#features" aria-hidden="true"></a>features</h3>
-<ul>
-<li>Declarative</li>
-<li>Component-Based</li>
-<li>Learn Once, Write Anywhere</li>
-</ul>
-
-            </section>
-        
-
-    </section>
-    
-
-
-
-    
-    <section>
-        <section >
-            <h3><a id="user-content-f-react-wrappers" class="anchor" href="#f-react-wrappers" aria-hidden="true"></a>F# React wrappers</h3>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-femto" class="anchor" href="#femto" aria-hidden="true"></a><a href="https://fable.io/blog/2019/2019-06-29-Introducing-Femto.html">Femto</a></h3>
-<p>Femto is CLI tool that manages the npm packages used by Fable bindings. It installs them using the npm package manager that you are using whether that is npm (default)</p>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-fable-packages" class="anchor" href="#fable-packages" aria-hidden="true"></a>Fable Packages</h3>
-<pre><code>Fable.Elmish.React (nuget)
-  |
-  | -- Fable.Elmish (nuget)
-  | -- Fable.React (nuget)
-        |
-        | -- react@16.8.0 (npm)
-        | -- react-dom@16.8.0 (npm)
-</code></pre>
-<aside class="notes"> 假設我們使用了Fable.React這套件，但這套件相依於npm套件中的react@16.8.0、react-dom@16.8.0，那我們需要再npm當中安裝這兩個套件才行，我們不但需要知道Fable.React要用到哪些npm套件，還要正確安裝才行，這非常麻煩，但Femto可以自動幫我們做掉這件事情。</aside>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-feliz" class="anchor" href="#feliz" aria-hidden="true"></a><a href="https://zaid-ajaj.github.io/Feliz/">Feliz</a></h3>
-<p>A fresh retake of the base React DSL to build React applications, optimized for happiness.</p>
-
-            </section>
-        
-            <section >
-                <p>Here is how it looks like:</p>
-<pre><code class="language-Fsharp=">module App
-
-open Feliz
-
-[&lt;ReactComponent&gt;]
-let Counter() =
-    let (count, setCount) = React.useState(0)
-    Html.div [
-        Html.button [
-            prop.style [ style.marginRight 5 ]
-            prop.onClick (fun _ -&gt; setCount(count + 1))
-            prop.text &quot;Increment&quot;
-        ]
-
-        Html.button [
-            prop.style [ style.marginLeft 5 ]
-            prop.onClick (fun _ -&gt; setCount(count - 1))
-            prop.text &quot;Decrement&quot;
-        ]
-
-        Html.h1 count
-    ]
-
-open Browser.Dom
-
-ReactDOM.render(Counter(), document.getElementById &quot;root&quot;)
-</code></pre>
-
-            </section>
-        
-
-    </section>
-    
-
-
-
-    
         <section >
             
-            <h3><a id="user-content-practice-wrapping-a-react-component" class="anchor" href="#practice-wrapping-a-react-component" aria-hidden="true"></a><a href="https://github.com/linitachi/SAFE-LearningCode/tree/master/ch5.reactWrapper">practice: Wrapping a React component</a></h3>
+            <h3><a id="user-content-fableremoting" class="anchor" href="#fableremoting" aria-hidden="true"></a><a href="https://zaid-ajaj.github.io/Fable.Remoting/">Fable.Remoting</a></h3>
+<pre><code class="language-fsharp">let todosApi =
+    { getTodos = fun () -&gt; async { return storage.GetTodos() }
+      addTodo =
+          fun todo -&gt;
+              async {
+                  match storage.AddTodo todo with
+                  | Ok () -&gt; return todo
+                  | Error e -&gt; return failwith e
+              } }
 
-            </section>
-    
-
-
-
-    
-    <section>
-        <section >
-            <h3><a id="user-content-elmish" class="anchor" href="#elmish" aria-hidden="true"></a><a href="https://safe-stack.github.io/docs/component-elmish/">Elmish</a></h3>
-
-            </section>
-        
-            <section >
-                <h4><a id="user-content-elmish-is-a-library-for-building-single-page-applications-in-f-applications-following-the-model-view-updatemvu-architecture-made-famous-by-elm" class="anchor" href="#elmish-is-a-library-for-building-single-page-applications-in-f-applications-following-the-model-view-updatemvu-architecture-made-famous-by-elm" aria-hidden="true"></a>Elmish is a library for building single page applications in F# applications, following the model-view-update(MVU) architecture made famous by Elm</h4>
-<aside class="notes">Elmish 是一個用於在 F# 應用程序中構建單頁應用程序的函式庫，遵循 Elm 著名的模型-視圖-更新架構。</aside>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-mvu-architeture" class="anchor" href="#mvu-architeture" aria-hidden="true"></a>MVU architeture</h3>
-<p><img src="./img/elmish-architeture.JPG" alt="" width="800" height="600"></p>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-practice-elmish---counter" class="anchor" href="#practice-elmish---counter" aria-hidden="true"></a><a href="https://github.com/linitachi/SAFE-LearningCode/tree/master/ch5.Elmish">practice: Elmish - counter</a></h3>
-<ul>
-<li><a href="https://thesharperdev.com/getting-started-with-elmish/">https://thesharperdev.com/getting-started-with-elmish/</a></li>
-<li><a href="https://www.compositional-it.com/news-blog/ui-programming-with-elmish-in-f/">https://www.compositional-it.com/news-blog/ui-programming-with-elmish-in-f/</a></li>
-</ul>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-elmish-on-safe-template" class="anchor" href="#elmish-on-safe-template" aria-hidden="true"></a>Elmish on SAFE Template</h3>
-<pre><code class="language-fsharp=">let update (msg: Msg) (model: Model) : Model * Cmd&lt;Msg&gt; =
-    match msg with
-    | GotTodos todos -&gt; { model with Todos = todos }, Cmd.none
-    | SetInput value -&gt; { model with Input = value }, Cmd.none
-    | AddTodo -&gt;
-        let todo = Todo.create model.Input
-
-        let cmd =
-            Cmd.OfAsync.perform todosApi.addTodo todo AddedTodo
-
-        { model with Input = &quot;&quot; }, cmd
-    | AddedTodo todo -&gt;
-        { model with
-              Todos = model.Todos @ [ todo ] },
-        Cmd.none
-</code></pre>
-<aside class="notes">剛剛的練習是簡化版本的Elmish，SAFE Template中的是具有command的版本</aside>
-
-            </section>
-        
-
-    </section>
-    
-
-
-
-    
-    <section>
-        <section >
-            <h3><a id="user-content-how-to-write-view" class="anchor" href="#how-to-write-view" aria-hidden="true"></a>How to write View?</h3>
-<ol>
-<li>Fable.React</li>
-<li>Feliz</li>
-<li>Feliz.Bulma</li>
-</ol>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-fablereact" class="anchor" href="#fablereact" aria-hidden="true"></a>Fable.React</h3>
-<pre><code class="language-fsharp=">  div []
-      [ button [ OnClick (fun _ -&gt; dispatch Increment) ] [ str &quot;+&quot; ]
-        div [] [ str (string model) ]
-        button [ OnClick (fun _ -&gt; dispatch Decrement) ] [ str &quot;-&quot; ] ]
-</code></pre>
-<p><a href="https://mangelmaxime.github.io/html-to-elmish/">https://mangelmaxime.github.io/html-to-elmish/</a></p>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-feliz-1" class="anchor" href="#feliz-1" aria-hidden="true"></a>Feliz</h3>
-<pre><code class="language-fsharp=">Html.div [
-    prop.className &quot;columns&quot;
-    prop.children [
-        Html.div [
-            prop.className &quot;column is-2&quot;
-            prop.children [
-                Html.button.a [
-                    prop.className &quot;button&quot;
-                    prop.text &quot;Click me&quot;
-                ]
-            ]
-        ]
-    ]
-]
+let webApp =
+    Remoting.createApi ()
+    |&gt; Remoting.withRouteBuilder Route.builder
+    |&gt; Remoting.fromValue todosApi
+    |&gt; Remoting.buildHttpHandler
 </code></pre>
 
             </section>
-        
-            <section >
-                <h3><a id="user-content-felizbulma" class="anchor" href="#felizbulma" aria-hidden="true"></a>Feliz.Bulma</h3>
-<pre><code class="language-fsharp=">open Feliz.Bulma
-
-Bulma.columns [
-    Bulma.column [
-        column.is2 // &lt;-- note context helper here
-        prop.children [
-            Bulma.button.button &quot;Click me&quot;
-        ]
-    ]
-]
-</code></pre>
-
-            </section>
-        
-            <section >
-                <h3><a id="user-content-difference" class="anchor" href="#difference" aria-hidden="true"></a>Difference</h3>
-<p><a href="https://github.com/Zaid-Ajaj/Feliz/issues/155#conclusion">My journey with Feliz | A comparison between Fable.React and Feliz #155</a></p>
-
-            </section>
-        
-
-    </section>
     
 
 
@@ -608,9 +349,6 @@ Bulma.columns [
         <section >
             
             <h3><a id="user-content-references" class="anchor" href="#references" aria-hidden="true"></a>References</h3>
-<p><a href="https://reactjs.org/">https://reactjs.org/</a></p>
-<p><a href="https://www.compositional-it.com/news-blog/f-wrappers-for-react-components/">F# wrappers for React components</a></p>
-<p><a href="https://dzoukr.github.io/Feliz.Bulma/#/">Feliz.Bulma</a></p>
 
             </section>
     

@@ -12,7 +12,7 @@ title: "SAFE Stack"
 
 ### Domain Modeling Made Functional
 
-#### F#
+#### F #
 
 <style>
 pre {
@@ -88,6 +88,7 @@ note:用於定義如何將程式語言中的數值和運算式歸類為許多不
 --
 
 #### Why Type System?
+
 > A well designed functional program, on the other hand, will have a strong focus on _data types_ rather than behavior.--  Scott Wlaschin
 
 --
@@ -102,6 +103,7 @@ note:用於定義如何將程式語言中的數值和運算式歸類為許多不
 ### Type abbreviations(alias)
 
 - Code Readability
+
 ```Fsharp=
 type [typename] = [existingType]
 type Name = String
@@ -110,7 +112,8 @@ type Fruit = Apple
 
 --
 
-#### Have a Question!
+#### Have a Question
+
 ```Fsharp=
 type FirstName = string
 type LastName = string
@@ -142,7 +145,7 @@ name lastName firstName // error
 
 ### Pattern Matching
 
-```Fsharp
+```Fsharp=
 type Fruit =
     | Apple
     | Banana
@@ -221,7 +224,7 @@ type Fruit = Apple | Banana | Papaya
 
 --
 
-```Fsharp
+```Fsharp=
 type UserContact ={
   FirstName: String50
   MiddleInitial: String1 option
@@ -248,10 +251,9 @@ note:這邊可以看到有一個User的連絡資訊，...
 
 ### References
 
-  https://www.youtube.com/watch?v=2JB1_e5wZmU
-  https://fsharpforfunandprofit.com/posts/overview-of-types-in-fsharp/
+  <https://www.youtube.com/watch?v=2JB1_e5wZmU>
+  <https://fsharpforfunandprofit.com/posts/overview-of-types-in-fsharp/>
 
 ---
-
 
 ## [return to Outline](../../export/#/2)

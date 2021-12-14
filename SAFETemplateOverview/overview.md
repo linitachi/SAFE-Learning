@@ -51,41 +51,60 @@ p {
 
 ---
 
-### Feliz.Bulma
+### Client/Server messaging
 
-```fsharp
-let view (model: Model) (dispatch: Msg -> unit) =
-    Bulma.hero [
-        hero.isFullHeight
-        color.isPrimary
-        prop.style [
-            style.backgroundSize "cover"
-            style.backgroundImageUrl "https://unsplash.it/1200/900?random"
-            style.backgroundPosition "no-repeat center center fixed"
-        ]
-        prop.children [
-            Bulma.heroHead [
-                Bulma.navbar [
-                    Bulma.container [ navBrand ]
-                ]
-            ]
-            Bulma.heroBody [
-                Bulma.container [
-                    Bulma.column [
-                        column.is6
-                        column.isOffset3
-                        prop.children [
-                            Bulma.title [
-                                text.hasTextCentered
-                                prop.text "SAFE_template"
-                            ]
-                            containerBox model dispatch
-                        ]
-                    ]
-                ]
-            ]
-        ]
-    ]
+#### 1. Fable.Remoting
+#### 2. Raw HTTP
+
+![](./img/compare.JPG)
+
+---
+
+### [Fable.Remoting](https://zaid-ajaj.github.io/Fable.Remoting/)
+
+--
+
+### Shared
+
+```fsharp=
+module Route =
+    let builder typeName methodName =
+        sprintf "/api/%s/%s" typeName methodName
+
+type ITodosApi =
+    { getTodos: unit -> Async<Todo list>
+      addTodo: Todo -> Async<Todo> }
+```
+
+### Sever
+
+```fsharp=
+let todosApi =
+    { getTodos = fun () -> async { return storage.GetTodos() }
+      addTodo =
+          fun todo ->
+              async {
+                  match storage.AddTodo todo with
+                  | Ok () -> return todo
+                  | Error e -> return failwith e
+              } }
+
+let webApp =
+    Remoting.createApi ()
+    |> Remoting.withRouteBuilder Route.builder
+    |> Remoting.fromValue todosApi
+    |> Remoting.buildHttpHandler
+```
+
+--
+
+### Client
+
+```fsharp=
+let todosApi =
+    Remoting.createApi ()
+    |> Remoting.withRouteBuilder Route.builder
+    |> Remoting.buildProxy<ITodosApi>
 ```
 
 ---

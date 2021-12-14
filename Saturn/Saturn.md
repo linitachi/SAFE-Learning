@@ -202,7 +202,7 @@ note:會在下一個function前面加上你想加的前綴url
 
 ### controller
 
-```Fsharp
+```Fsharp=
 let resource = controller {
     index indexAction
     show showAction
@@ -341,7 +341,7 @@ run app
 
 3. Copy & paste
 
-```Fsharp
+```Fsharp=
 module Fuber.Routes
 
 open Giraffe
