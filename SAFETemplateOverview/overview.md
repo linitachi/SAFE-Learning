@@ -54,6 +54,7 @@ p {
 ### Client/Server messaging
 
 #### 1. Fable.Remoting
+
 #### 2. Raw HTTP
 
 ![](./img/compare.JPG)
@@ -94,6 +95,9 @@ let webApp =
     |> Remoting.withRouteBuilder Route.builder
     |> Remoting.fromValue todosApi
     |> Remoting.buildHttpHandler
+
+//http:localhost:8085/api/ITodosApi/getTodos
+//http:localhost:8085/api/ITodosApi/addTodo
 ```
 
 --
@@ -109,7 +113,18 @@ let todosApi =
 
 ---
 
+### [MongoDB F#](https://medium.com/@mukund.sharma92/cruding-in-f-with-mongodb-e4699d1ac17e)
+
+---
+
+### [Serilog](https://github.com/Zaid-Ajaj/Giraffe.SerilogExtensions)
+
+---
+
 ### References
+
+<https://safe-stack.github.io/docs/recipes/client-server/messaging/>
+<https://safe-stack.github.io/docs/recipes/client-server/messaging-post/>
 
 ---
 

@@ -322,8 +322,35 @@ p {
     
         <section >
             
+            <h3><a id="user-content-clientserver-messaging" class="anchor" href="#clientserver-messaging" aria-hidden="true"></a>Client/Server messaging</h3>
+<h4><a id="user-content-1-fableremoting" class="anchor" href="#1-fableremoting" aria-hidden="true"></a>1. Fable.Remoting</h4>
+<h4><a id="user-content-2-raw-http" class="anchor" href="#2-raw-http" aria-hidden="true"></a>2. Raw HTTP</h4>
+<p><img src="./img/compare.JPG" alt=""></p>
+
+            </section>
+    
+
+
+
+    
+    <section>
+        <section >
             <h3><a id="user-content-fableremoting" class="anchor" href="#fableremoting" aria-hidden="true"></a><a href="https://zaid-ajaj.github.io/Fable.Remoting/">Fable.Remoting</a></h3>
-<pre><code class="language-fsharp">let todosApi =
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-shared" class="anchor" href="#shared" aria-hidden="true"></a>Shared</h3>
+<pre><code class="language-fsharp=">module Route =
+    let builder typeName methodName =
+        sprintf &quot;/api/%s/%s&quot; typeName methodName
+
+type ITodosApi =
+    { getTodos: unit -&gt; Async&lt;Todo list&gt;
+      addTodo: Todo -&gt; Async&lt;Todo&gt; }
+</code></pre>
+<h3><a id="user-content-sever" class="anchor" href="#sever" aria-hidden="true"></a>Sever</h3>
+<pre><code class="language-fsharp=">let todosApi =
     { getTodos = fun () -&gt; async { return storage.GetTodos() }
       addTodo =
           fun todo -&gt;
@@ -338,7 +365,43 @@ let webApp =
     |&gt; Remoting.withRouteBuilder Route.builder
     |&gt; Remoting.fromValue todosApi
     |&gt; Remoting.buildHttpHandler
+
+//http:localhost:8085/api/ITodosApi/getTodos
+//http:localhost:8085/api/ITodosApi/addTodo
 </code></pre>
+
+            </section>
+        
+            <section >
+                <h3><a id="user-content-client" class="anchor" href="#client" aria-hidden="true"></a>Client</h3>
+<pre><code class="language-fsharp=">let todosApi =
+    Remoting.createApi ()
+    |&gt; Remoting.withRouteBuilder Route.builder
+    |&gt; Remoting.buildProxy&lt;ITodosApi&gt;
+</code></pre>
+
+            </section>
+        
+
+    </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3><a id="user-content-mongodb-f" class="anchor" href="#mongodb-f" aria-hidden="true"></a><a href="https://medium.com/@mukund.sharma92/cruding-in-f-with-mongodb-e4699d1ac17e">MongoDB F#</a></h3>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h3><a id="user-content-serilog" class="anchor" href="#serilog" aria-hidden="true"></a><a href="https://github.com/Zaid-Ajaj/Giraffe.SerilogExtensions">Serilog</a></h3>
 
             </section>
     
@@ -349,6 +412,8 @@ let webApp =
         <section >
             
             <h3><a id="user-content-references" class="anchor" href="#references" aria-hidden="true"></a>References</h3>
+<p><a href="https://safe-stack.github.io/docs/recipes/client-server/messaging/">https://safe-stack.github.io/docs/recipes/client-server/messaging/</a>
+<a href="https://safe-stack.github.io/docs/recipes/client-server/messaging-post/">https://safe-stack.github.io/docs/recipes/client-server/messaging-post/</a></p>
 
             </section>
     
