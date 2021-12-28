@@ -58,13 +58,13 @@ p {
 
 ### Outline
 
-1. [F# Introduction](../FsharpIntroduction/export/)
-2. [Domain Modeling Made Functional](../DomainModeling/export/)
-3. [SAFE Introduction](../SAFE-intro/export/)
-4. [Saturn](../Saturn/export/)
-5. [Fable+Elmish](../Fable&Elmish/export/)
-6. [SAFE Template Overview](../SAFETemplateOverview/export)
-7. [Functional Programming With F#](../fp/export/)
+1. [F# Introduction](../FsharpIntroduction/export/index.html#)
+2. [Domain Modeling Made Functional](../DomainModeling/export/index.html#)
+3. [SAFE Introduction](../SAFE-intro/export/index.html#)
+4. [Saturn](../Saturn/export/index.html#)
+5. [Fable+Elmish](../Fable&Elmish/export/index.html#)
+6. [SAFE Template Overview](../SAFETemplateOverview/export/index.html#)
+7. [Functional Programming With F#](../fp/export/index.html#)
 
 note:
 F# Introduction:let everyone know what is F# and introcution of syntax

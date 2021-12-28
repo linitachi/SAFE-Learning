@@ -12,7 +12,7 @@ title: "SAFE Stack"
 
 ### Domain Modeling Made Functional
 
-#### F #
+#### F#
 
 <style>
 pre {
@@ -256,4 +256,4 @@ note:這邊可以看到有一個User的連絡資訊，...
 
 ---
 
-## [return to Outline](../../export/#/2)
+## [return to Outline](../../export/index.html#/2)

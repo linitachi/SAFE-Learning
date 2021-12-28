@@ -8,9 +8,7 @@ title: "SAFE Stack"
 
 ---
 
-### ch x
-
-### Functional Programing with F#
+### Functional Programing with F #
 
 <style>
 pre {
@@ -60,14 +58,37 @@ A programming paradigm where programs are constructed by applying and composing 
 --
 
 ![](./img/1.JPG =800x600)
-https://ithelp.ithome.com.tw/articles/10233761
+
+<https://ithelp.ithome.com.tw/articles/10233761>
+
+---
+
+### Design Pattern/principle
+
+![](./img/all-functions.png)
+
+---
+
+### Curry
+
+```
+let add42 = (+) 42 // partial application
+add42 1
+add42 3
+
+// create a new list by applying the add42 function
+// to each element
+[ 1; 2; 3 ] |> List.map add42
+
+let printer = printfn "printing param=%i"
+[ 1; 2; 3 ] |> List.iter printer
+```
+
 
 ---
 
 ### References
 
-
-
 ---
 
-## [return to Outline](../../export/#/2)
+## [return to Outline](../../export/index.html#/2)
